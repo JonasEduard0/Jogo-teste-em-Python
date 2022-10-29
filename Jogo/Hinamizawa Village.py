@@ -4,26 +4,12 @@ from pygame import mixer
 import socket
 
 mixer.init() 
-mixer.music.load("E:\Jogo\onceupon.mp3") 
-mixer.music.set_volume(1.0) 
+mixer.music.load("I:\Jogo\onceupon.mp3")
 mixer.music.play()
+mixer.music.set_volume(1.0) 
 
-print('\n'*4)
-print('''-=-=-=-=-=-=-=-=-=-=-= \033[4;30;41mHinamizawa Village\033[m -=-=-=-=-=-=-=-=-=-=-=
-    1 - \033[4;32mIniciar Jogo\033[m
-    2 - \033[4;30mContinuar\033[m
-    3 - \033[4;32mCréditos\033[m
-    4 - \033[4;31mSair\033[m
-''')
 
-faz = float(input('O quê deseja fazer : '))
-print('\n')
-if faz == 2 :
-    print('Não há jogo salvo, crie um novo jogo. Reinicie para iniciar um novo jogo ou aguarde para ir direto para o capítulo 2')
-    mixer.music.stop()
-    time.sleep(15)
-    print('\n')
-elif faz == 3 :
+def creditos():
     print('''    \033[1;31;41mCréditos\033[m
 
 Desenvolvedor : Jonas
@@ -36,32 +22,71 @@ Inspirado no anime Higurashi no Naku Koro ni
 
 Trilha sonora : Undertale SoundTrack
 
-Reinicie o código para iniciar um novo jogo ou aguarde para ir direto para o capítulo 2''')
+Reinicie o código para iniciar um novo jogo''')
     mixer.music.stop()
     time.sleep(15)
     print('\n')
-elif faz == 4:
-    print('Fim de Jogo! Reinicie para iniciar um novo jogo ou aguarde para ir direto para o capítulo 2')
+
+def sair():
+    print('Fim de Jogo! Reinicie para iniciar um novo jogo')
     mixer.music.stop()
     time.sleep(15)
     print('\n')
-elif faz < 1 or faz > 4:
+
+def nop():
     print('Não há essa opção, escolha uma válida. Reinicie para iniciar um novo jogo')
     mixer.music.stop()
     print('\n')
+
+def salvo():
+    print('Não há jogo salvo, crie um novo jogo. Reinicie para iniciar um novo jogo')
+    mixer.music.stop()
+    time.sleep(15)
+    print('\n')
+
+def cap():
+    print('\nIniciando capítulo 2...\n')
+
+vida = 100
+dano = 5
+armadura = 0
+dinheiro = 0
+
+print('\n'*4)
+print('''-=-=-=-=-=-=-=-=-=-=-= \033[4;30;41mHinamizawa Village\033[m -=-=-=-=-=-=-=-=-=-=-=
+    1 - \033[4;32mIniciar Novo Jogo\033[m
+    2 - \033[4;32mIniciar Cap. 2\033[m
+    3 - \033[4;30mContinuar\033[m
+    4 - \033[4;32mCréditos\033[m
+    5 - \033[4;31mSair\033[m
+''')
+
+faz = float(input('O quê deseja fazer : '))
+print('\n')
+if faz == 3 :
+    salvo()
+elif faz == 4 :
+    creditos()
+elif faz == 5:
+    sair()
+elif faz < 1 or faz > 5:
+    nop()
+elif faz == 2:
+    cap()
 elif faz == 1:
     print('\n')
     print(f'\033[0;31;40mTome suas decisões com cuidado, os personagens se lembrarão de suas ações...\033[m')
     time.sleep(3)
     print('\n'*40)
     mixer.music.stop()
-    mixer.music.load("E:\Jogo\oruins.mp3")
+    mixer.music.load("I:\Jogo\oruins.mp3")
     mixer.music.play()
     print('''Você acaba de se mudar para uma vila remota com sua mãe e pai, chamada Hinamizawa
 Seus pais sairam para fazer compras e você está organizando seu quarto
 De repente, sua campainha toca
 ''')
-    atende = input('Você atende a porta ?(atender/ignorar) : ')
+
+    atende = input('Você atende a porta? (Atender / Ignorar) : ')
     if atende in 'atenderAtender atender AtenderATENDER':
         print('Você caminha em direção a porta e abre')
     if atende in 'ignorarIgnorarIGNORAR ':
@@ -97,7 +122,7 @@ De repente, sua campainha toca
     time.sleep(3)
     print('\n'*7)
     print('É um novo dia, você acorda e se prepara ir ao seu primeiro dia de aula na nova escola. No caminho, você ouve dois idosos conversando')
-    conv = input('O quê você faz ?(ouvir/continuar) : ')
+    conv = input('O quê você faz? (Ouvir / Continuar) : ')
     if conv in 'continuarContinuarCONTINUAR':
         print('Não é certo espiar conversas alheias, você continua caminhando para a escola')
         print('\n')
@@ -114,13 +139,15 @@ Você se assusta com a conversa e decide voltar para o caminho pensando que não
     print(f'    -\033[4;33m {nome}, finalmente! Como essa é a única escola, sabia que você apareceria aqui. Deixa eu te apresentar pra nossa turma\033[m \n')
     time.sleep(4)
     print('Uma garota de cabelo verde aparece, parece ter uma personalidade calma e inteligente \n')
-    print('    - \033[4;32mE aí, eu sou a Mitsuki.\033[m')    
+    print('    - \033[4;32mE aí, eu sou a Mitsuki.\033[m\n')    
     print(f'    - Prazer, {nome}. \n')
     time.sleep(4)
     print('''Em seguida, uma outra garota de cabelo roxo se apresenta, você quase nem percebe que ela estava lá
 
     -\033[4;35m Rika\033[m
+
     - Quê?
+
     -\033[4;33m Ela não é de falar muito, deu pra perceber\033[m
     ''')
     time.sleep(3)
@@ -129,7 +156,7 @@ Você se assusta com a conversa e decide voltar para o caminho pensando que não
     time.sleep(3)
     if conv in 'ouvirOuvirOUVIR':
         print('Você acaba de lembrar da conversa estranha que ouviu dos idosos mais cedo e a curiosidade toma conta')
-        ido = input('Você questiona sobre a conversa?(Questionar / Não questionar) : ')
+        ido = input('Você questiona sobre a conversa? (Questionar / Não questionar) : ')
         print('\n')
         if ido in 'QuestionarquestionarQUESTIONAR questionar Questionar QUESTIONAR':
             print('''   - Então, tinha um cara com o mesmo nome que eu que morava aqui e foi... morto por uma maldição?''')
@@ -141,28 +168,28 @@ Você se assusta com a conversa e decide voltar para o caminho pensando que não
             time.sleep(5)
             print('Um silêncio estranho toma conta do grupo, olhares de pavor te cercam... \n')
             time.sleep(5)
-            print('''   -\033[4;33m Esqueça isso, eventualmente você saberá, mas não agora\033[m ''')
-            print('''   - Entendi...''')
-            mixer.music.load("E:\Jogo\sotemperated.mp3")
+            print('''   -\033[4;33m Esqueça isso, eventualmente você saberá, mas não agora\033[m 
+            
+    - Entendi...\n''')
+            mixer.music.load("I:\Jogo\sotemperated.mp3")
             mixer.music.play()
             time.sleep(3)
         elif ido in 'naoquestionar nao questionarNaoquestionarNão questionarnão questionar':
             print('Um sentimento de alívio toma conta, você sente que se perguntasse, algo ruim aconteceria \n')
             mixer.music.stop()
-            mixer.music.load("E:\Jogo\sotemperated.mp3")
+            mixer.music.load("I:\Jogo\sotemperated.mp3")
             mixer.music.play()
     elif conv in 'continuarContinuarCONTINUAR':
         time.sleep(3)
     if festival in 'acho que naoAcho que naoacho que não':
-        print(f'''   - \033[4;33mMudando de assunto, {nome} disse que não quer se juntar a nós no Wataganashi, mas acho que seria bom se ele fosse para conhecer mais da vila\033[m''')
+        print(f'''   -\033[4;33m Mudando de assunto, {nome} disse que não quer se juntar a nós no Wataganashi, mas acho que seria bom se ele fosse para conhecer mais da vila\033[m \n''')
     elif festival in 'claroClaro claro Claroque festival?que festivalQue festivalQue festival?':
-        print(f'''  - \033[4;33mMudando de assunto, {nome} tem interesse em se juntar a nós no festival de Watanagashi!\033[m''')
-    print('''   - \033[4;32mMas como ele é não conhece aqui muito bem, ele deveria ir com alguém daqui, menos a Rika, já que ela ajuda na organização do festival\033[m
+        print(f'''  - \033[4;33mMudando de assunto, {nome} tem interesse em se juntar a nós no festival de Watanagashi!\033[m \n''')
+    print('''   - \033[4;32mMas como ele não conhece a vila muito bem, ele deveria ir com alguém daqui, menos a Rika, já que ela ajuda na organização do festival\033[m
 
 Todos olham para você''')
 
-    print('\n')
-    ir = input('    - \033[4;33mCom que você irá?\033[m(Mitsuki,Keiichi) :') 
+    ir = input('''    - \033[4;33mCom que você irá?\033[m (Mitsuki / Keiichi) : ''') 
     print('\n')
     if ir in 'Mitsukimitsuki MITSUKI mitsukiMITSUKI':
         print('''    - Acho que quero ir com Mitsuki, não gostaria de sair com o Keiichi do jeito que ele é''')
@@ -200,44 +227,24 @@ Todos olham para você''')
     time.sleep(10)
     mixer.music.stop()
 
-mixer.music.load("E:\Jogo\onceupon.mp3")
+mixer.music.load("I:\Jogo\onceupon.mp3")
 mixer.music.play()
 print(''' 
--=-=-=-=-=-=-=-=-=-=-= \033[4;30;41mHinamizawa Village\033[m -=-=-=-=-=-=-=-=-=-=-=
+-=-=-=-=-=-=-=-=-=-=-= \033[4;30;41mHinamizawa Village Capítulo 2\033[m -=-=-=-=-=-=-=-=-=-=-=
     1 - \033[4;32mIniciar Jogo\033[m
         * 1.1 - \033[4;32mIniciar Cap. 2\033[m
     2 - \033[4;32mContinuar\033[m
     3 - \033[4;32mCréditos\033[m
-    4 - \033[4;31mSair\033[m ''')
-
-vida = 100
-dano = 5
-armadura = 0
-dinheiro = 0
+    4 - \033[4;31mSair\033[m \n''')
 menu2 = float(input('O quê deseja fazer : '))
 print('\n')
 
 if menu2 == 3:
-    print('''    \033[1;31;41mCréditos\033[m
-
-Desenvolvedor : Jonas
-Roteirista : Roger 
-Músicas : Marcos
-
-Utilizando PYTHON por meio do Visual Studio Code
-
-Inspirado no anime Higurashi no Naku Koro ni 
-
-Reinicie e escolha 3 no primeiro menu e aguarde para jogar o capítulo 2 \n''')
-    mixer.music.stop()
+    creditos()
 elif menu2 == 4:
-    print('Fim de Jogo! Reinicie e escolha 3 no primeiro menu e aguarde para jogar o capítulo 2')
-    print('\n')
-    mixer.music.stop()
+    sair()
 elif menu2 < 1 or menu2 > 4:
-    print('Não há essa opção, escolha uma válida. Reinicie e escolha 3 no primeiro menu e aguarde para jogar o capítulo 2')
-    print('\n')
-    mixer.music.stop()
+    nop()
 elif menu2 == 1 or menu2 == 1.1 or menu2 == 2:
     print('Carregando capítulo 2 ...')
     time.sleep(3)
@@ -247,7 +254,7 @@ elif menu2 == 1 or menu2 == 1.1 or menu2 == 2:
     time.sleep(3)
     print('\n'*10)
 
-    mixer.music.load("E:\Jogo\sotemperated.mp3")
+    mixer.music.load("I:\Jogo\sotemperated.mp3")
     mixer.music.play()
     print('''É uma terça-feira, 4/4, são 21:30, não há aulas pois uma festa cultural da vila que acontece uma vez por ano está acontecendo
 Você deveria se encontrar com Mitsuki e Keiichi e depois ser apresentado ao festival pela pessoa que você escolheu ontem''')
@@ -268,11 +275,11 @@ Mitsuki aparece, mas nada de Keiichi''')
     print('''    - \033[4;34mEstávamos te esperando, Mitsuki\033[m''')
     nome = input('    - \033[4;34mE qual seria seu nome, garoto\033[m? :')
     print('\n')
-    print(f'''  - \033[4;32mEle é um amigo da escola que se mudou esse ano, não se preocupe Miyo e Irie, ele é confiável\033[m \n
+    print(f'''  -\033[4;32m Ele é um amigo da escola que se mudou esse ano, não se preocupe Miyo e Irie, ele é confiável\033[m \n
     - \033[4;36mPrazer {nome}. Sou o médico local e Miyo a enfermeira, nós criamos a clínica de enfermagem da vila recentemente. Nós vamos entrar nesse galpão, enquanto isso Miyo vai te explicar o motivo de estarmos aqui\033[m \n''')
     time.sleep(5)
     mixer.music.stop()
-    mixer.music.load("E:\Jogo\premonition.mp3")
+    mixer.music.load("I:\Jogo\premonition.mp3")
     mixer.music.play()
     print('''    - \033[4;32mBom, existem duas famílias fundadoras da vila, a minha que é responsável por políticas públicas, e a da Ruri, era responsável pela parte religiosa de Hinamizawa. Seus pais eram sacerdotes\033[m \n''')
     time.sleep(3)
@@ -291,7 +298,7 @@ Mitsuki aparece, mas nada de Keiichi''')
     print('\n')
     time.sleep(3)
     
-    tutcom = input('O tutorial de combate será iniciado, deseja ve-lô?(Ver / Pular) : ')
+    tutcom = input('O tutorial de combate será iniciado, deseja ve-lô? (Ver / Pular) : ')
     time.sleep(3)
     print('\n')
     if tutcom in 'verVerVER ver VER Ver':
@@ -313,7 +320,7 @@ Esquivar : você esquiva do ataque sem tomar dano.
 
     time.sleep(5)
     mixer.music.stop()
-    mixer.music.load("E:\Jogo\heartache.mp3")
+    mixer.music.load("I:\Jogo\heartache.mp3")
     mixer.music.play()
     porta = input('O morcego te ataca, oquê você faz? (Fugir / Atacar / Esquivar): ')
     if porta in 'atacarATACARAtacar atacar Atacar ATACAR':
@@ -361,7 +368,7 @@ Você recupera PV(95 -> 100) \n''')
 Dano aumentado (5 -> 10)''')
     dano = dano + 5
     mixer.music.stop()
-    mixer.music.load("E:\Jogo\waterfall.mp3")
+    mixer.music.load("I:\Jogo\waterfall.mp3")
     mixer.music.play()
     print('''O grupo se prepara para entrar no galpão, e a visão é assustadora
 Vocês veem ferramentas de tortura antigas, como grilhões, facões, etc \n''')
@@ -404,12 +411,12 @@ Irie e Miyo se despedem e você fica a sós com Mitsuki
     print('''Em casa você faz sua rotina noturna e joga o pedaço de cano que tinha pego de Irie fora
 Você lembra de seu taco de baseball feito de metal que usava para jogar quando criança, deve machucar... Há também uma grande jaqueta de couro e um resto da sua mesada \n''')
     dano -= 5
-    taco = input('''Pegar?(Sim/Não) : ''')
+    taco = input('''Pegar? (Sim / Não) : ''')
     if taco in 'simSimSIM sim Sim SIM':
         dano += 10
         armadura += 10
         dinheiro += 20
-        print('\n Dano aumentado(5 -> 15), armadura aumentada(0 -> 10), dinheiro aumentado(0 -> 20)')
+        print('\nDano aumentado(5 -> 15), armadura aumentada(0 -> 10), dinheiro aumentado(0 -> 20)')
 
     print('''Você deita e dorme
 Jogo salvo''')
@@ -417,7 +424,7 @@ Jogo salvo''')
     print('\n'*40)
     time.sleep(10)
     mixer.music.stop()
-    mixer.music.load("E:\Jogo\oruins.mp3")
+    mixer.music.load("I:\Jogo\oruins.mp3")
     mixer.music.play()
 
     print(f'''É um novo dia, sexta-feira, você acorda atrasado e tem que ir para a escola às pressas
@@ -451,7 +458,7 @@ Você chega na sala e lá está apenas um homem gordo, velho e cabelo cinza
 
     - \033[7;30mSente-se garoto, tenho algumas perguntas para você\033[m''')
     mixer.music.stop()
-    mixer.music.load("E:\Jogo\sotemperated.mp3")
+    mixer.music.load("I:\Jogo\sotemperated.mp3")
     mixer.music.play()
     time.sleep(10)
     print('''    - \033[7;30mMe chamo Oishi, sou da polícia local. Deve ter ficado sabendo do desaparecimento de Irie e da morte de Miyo\033[m
@@ -460,9 +467,9 @@ Você começa a suar frio
 
     - \033[7;30mParece que ficou sabendo só agora, que pena. Você foi visto com eles no festival de ontem, sabe de algo anormal que pode ter acontecido?\033[m \n''')
 
-    vdd = input('Dizer a verdade à Oishi? (Sim/Não) : ')
+    vdd = input('Dizer a verdade à Oishi? (Sim / Não) : ')
     if vdd in 'simSimSIM sim Sim SIM':
-        print(f'''Você conta tudo para ele, desde a invasão ao galpão quanto à ter visto uma sihueta les observando. Também conta o que sabe sobre a maldição
+        print(f'''\nVocê conta tudo para ele, desde a invasão ao galpão quanto à ter visto uma sihueta les observando. Também conta o que sabe sobre a maldição
 Ele só aparenta ficar surpreso quando você termina a falar sobre a maldição
 
     - \033[7;30mEntendi... não se preocupe, você não será penalisado por invadir uma propriedade já que foi por influência\033[m
@@ -483,7 +490,7 @@ Você segura o vômito
 Você pega o cartão e põe no bolso
 Oishi sai da sala, você segue em direção á enfermaria e retira um atestado para faltar as últimas aulas por não se sentir bem''')
     else:
-        print('''   - Não sei de nada... só nos encontramos no festival e seguimos nosso rumo
+        print('''\n   - Não sei de nada... só nos encontramos no festival e seguimos nosso rumo
 
 Ele olha desconfiado
 
@@ -540,7 +547,7 @@ Sua campainha toca, você não está esperando visitas...''')
     
     - \033[4;33m{nome}! Abre ae, quero só conversar\033[m \n''')
 
-    abri = input('Você abre a porta? (abrir / não abrir) : ')
+    abri = input('Você abre a porta? (Abrir / Não abrir) : ')
     if abri in 'abrirABRIRAbrir ABRIR Abrir abrir':
         print(''' \n ...
 Acho que não ficou claro''')
@@ -558,7 +565,7 @@ Ele começa a bater na porta mais forte enquanto grita \n''')
     print('''   - \033[4;33mEU SÓ QUERO CONVERSAR\033[m
     
 A tranca da porta se quebra com as pancadas e ela abre \n''')
-    mixer.music.load("E:\Jogo\megalovania.mp3")
+    mixer.music.load("I:\Jogo\megalovania.mp3")
     mixer.music.play()
     time.sleep(10)
     print('''   - ...
@@ -568,7 +575,7 @@ A tranca da porta se quebra com as pancadas e ela abre \n''')
    
 Ele corre em cima de você e te ataca \n''')
 
-fa = input('O que você faz?(Atacar / Fugir / Esquivar) : ')
+fa = input('O que você faz? (Atacar / Fugir / Esquivar) : ')
 if fa in 'esquivarESQUIVAREsquivar Esquivar esquivar ESQUIVAR':
     print('''\nRodando dado d20...
 Você falhou, ele é muito rápido e parece que é inútil tentar esquivar. Ele contra-ataca...
@@ -669,7 +676,7 @@ print('Você terminou o capítulo 2 - "Descobertas" \n')
 time.sleep(5)
 
 
-mixer.music.load("E:\Jogo\onceupon.mp3")
+mixer.music.load("I:\Jogo\onceupon.mp3")
 mixer.music.play()
 print(''' 
 -=-=-=-=-=-=-=-=-=-=-= \033[4;30;41mHinamizawa Village\033[m -=-=-=-=-=-=-=-=-=-=-=
@@ -684,15 +691,15 @@ menu3 = float(input('Selecione 1, 2 ou 1.2 para iniciar a parte final de seu tor
 print('\n')
 
 if menu3 == 3:
-    print(f'Não se distraia de seu caminho,',socket.gethostname() )
+    print(f'Não se distraia de seu caminho,',nome )
 elif menu3 == 4:
-    print(f'Você não pode mais escapar, ',socket.gethostname() )
+    print(f'Você não pode mais escapar, ',nome )
     print('\n')
 elif menu3 < 1 or menu3 > 4:
-    print(f'Não tente escapar digitando um número que não tem, ',socket.gethostname() )
+    print(f'Não tente escapar digitando um número que não tem, ',nome )
     print('\n')
 elif menu3 == 1.1:
-    print(f'Você já passou por esse tormento, ',socket.gethostname() )
+    print(f'Você já passou por esse tormento, ',nome )
 
 print('Carregando capítulo 3 ...')
 time.sleep(3)
@@ -701,7 +708,7 @@ print('''Hinamizawa Village Capítulo 3 - "A maldição"
 \033[0;31;40mTome suas decisões com cuidado, os personagens se lembrarão de suas ações...\033[m''')
 time.sleep(5)
 print('\n'*40)
-mixer.music.load("E:\Jogo\sotemperated.mp3")
+mixer.music.load("I:\Jogo\sotemperated.mp3")
 mixer.music.play()
 time.sleep(5)
 
@@ -728,7 +735,7 @@ if vdd in 'simSimSIM sim Sim SIM':
     - Até... \n''')
     time.sleep(8)
 else:
-    print('''   - \033[7;30mEu até te daria mais informações, mas você não quis me contar o quê sabia quando nos encontramos antes, só vou dizer que irei investigar o hospital e tenho que ir, até algum dia\033[m ''')
+    print('''   - \033[7;30mEu até te daria mais informações, mas você não quis me contar o quê sabia quando nos encontramos antes, só vou dizer que irei investigar o hospital e tenho que ir, até algum dia\033[m \n''')
 
 print('''Obviamente, após tudo que aconteceu, você não ficará parado. Seu corpo já está bem e você se sente quase totalmente revigorado (90 de PV)''')
 vida = 90
@@ -758,16 +765,16 @@ Dano aumentado ({dano} -> 30), armadura aumentada ({armadura} -> 30) \n
 time.sleep(8)
 if taco in 'simSimSIM sim Sim SIM':
     print('Por sorte, você pegou um dinheiro em casa antes e tem R$20,00 \n')
-    print('    - \033[7;30mÉ o suficiente... tome, acho que você sabe usar uma já que usou lá no celeiro\033[m')
+    print('    - \033[7;30mÉ o suficiente... tome, acho que você sabe usar uma já que usou lá no celeiro\033[m \n')
     dano = 50
-    print('Dano aumentado (30 -> 50)')
+    print('Dano aumentado (30 -> 50) \n')
 else:
     print('Infelizmente você recusou pegar dinheiro na sua casa antes, você não tem nada')
     print('''   - \033[7;30mTô brincando nunca te daria uma arma de fogo...\033[m
 
 Você sente que em um universo paralelo ele te daria sim uma arma de fogo se tivesse dinheiro, que arrombado''')
 mixer.music.stop()
-mixer.music.load("E:\Jogo\waterfall.mp3")
+mixer.music.load("I:\Jogo\waterfall.mp3")
 mixer.music.play()
 time.sleep(5)
 
@@ -790,7 +797,7 @@ Vocês seguem para o Arquivos e é revelado várias estantes de documentos, mas 
 Você o pega e lê em voz alta \n''')
 time.sleep(20)
 
-print('''    - "Hoje, começa o grande dia. Eu e Miyo descobrimos esse potencial vírus específico de uma vila iremos analisá-lo em uma vila de 1000 habitantes"
+print('''    - "Hoje, começa o grande dia. Eu e Miyo descobrimos esse potencial vírus específico de uma vila iremos analisá-lo"
     "Ela não possui um hospital, então chegaremos com o pretexto de querer ajudar a saúde local"
     "Descobrimos o vírus quando um paciente de nosso primeiro hospital foi diagnosticado com uma doença até então não descoberta por mais ninguém e ele era de Hinamizawa"
     "Chamamos a doença de \033[0;31;40mMaldição de Oyashiro\033[m, pois esse será a desculpa para as pessoas que espalharemos quando elas começarem a morrer ou enlouquecer, uma maldição do deus local" 
@@ -801,10 +808,9 @@ print('''O próximo que interessa foi escrito ano passado :
     
     "Já estamos aqui há alguns anos, eis oquê descobrimos : o vírus se aloja no pescoço do infectado, causando grande coceira. As pessoas parecem acreditar na história da maldição. Aproveitamos uma briga interna da vila por conta de uma represa para causarmos mais vítimas e termos mais corpos para estudar e enfim vender o vírus como arma biológica ou criar super-soldados. Miyo parece estar se sensibilizando com as vítimas desde que matamos os pais de uma garotinha chamada \033[4;35mRika\033[m, filha dos sacerdotes locais, mas caso ela tente me trair, posso infectá-la e fazer parecer suicídio. Caso isso aconteça, terei que forjar meu desaparecimento e estudar mais intensamente escondido" \n''')
 time.sleep(8)
-print('''Esse próximo foi escrito a poucos dias
+print(f'''Esse próximo foi escrito a poucos dias
 
-    - "Aquela puta me traiu, tentou comunicar um detetive chamado Oishi escondido de mim, não deve ter aguentado o fardo de termos criado aquela coisa na sala de 'Teste final'. E tem tambem essa criança chamada Keiichi, um fanático por Oyashiro que nos viu entrando no depósito, mas já cuidei dele...
-    Se Miyo encontrasse o detetive, provavelmente contaria meu nome real : ''',socket.gethostname() )
+    - "Aquela puta me traiu, tentou comunicar um detetive chamado Oishi escondido de mim, não deve ter aguentado o fardo de termos criado aquela coisa na sala de 'Teste final'. E tem tambem essa criança chamada Keiichi, um fanático por Oyashiro que nos viu entrando no depósito, mas já cuidei dele...''')
     
 print('\n')
 print('''Isso é tudo \n''')
@@ -828,12 +834,14 @@ A porta atrás de vocês é fechada bruscamente em meio a risos
     - \033[4;36mSeus idiotas! Vocês não poderão mais sair daqui\033[m
     
     - \033[7;30mIrie! Recomendo destrancar a porta e se render se não posso usar de força policial para te impedir\033[m \n''')
-    
+
+time.sleep(10)
 print('''    - \033[4;36mNUNCA! Trabalho nesse projeto a anos, e estou a ponto de criar um supersoldado utilizando o vírus\033[m
-    - \033[4;36mConincidentemente, precisava de cobaias vivas para testar o potencial do meu teste final...\033[m
+    - \033[4;36mCoincidentemente, precisava de cobaias vivas para testar o potencial do meu teste final...\033[m
     - \033[4;36mApareça Higurashi! \033[m \n''')
 time.sleep(10)
-mixer.music.load("E:\Jogo\onightmare.mp3")
+cont = input('A partir deste ponto não há mais volta (Entendi) : ')
+mixer.music.load("I:\Jogo\onightmare.mp3")
 mixer.music.play()
 time.sleep(15)
 print('''No mesmo instante, um rugido terrível ecoa o lugar em que vocês estão trancados. Um mostro de 4 metros, veias pulsantes, e cobreto por sangue dele próprio aparece \n''')
@@ -975,8 +983,8 @@ if l1 == 1:
 else:
     print(f'Você não esquivou e tomou um soco do ser humanóide. (76 -> 53)')
     vida = 53
-    print('Você sente suas feridas da última batalha se abrindo')
-
+    print('Você sente suas feridas da última batalha se abrindo ')
+print('\n')
 boss = input('O quê você faz? (Atacar / Esquivar / \033[4;30mFugir\033[m / Clamar por piedade) : ')
 if boss in 'atacarAtacarATACAR atacar Atacar ATACARatacar Atacar ATACAR ':
     a = random.randint(0,20)
@@ -1005,7 +1013,7 @@ else:
     l1 = 0
 
 mixer.music.stop()
-mixer.music.load("E:\Jogo\onightmare.mp3")
+mixer.music.load("I:\Jogo\onightmare.mp3")
 mixer.music.play()
 
 print('''Higurashi pula em cima de Oishi, com intenção de matar.
@@ -1039,25 +1047,25 @@ O monstro está distraído comendo o que sobrou de Oishi
 Enquanto isso, homens começam a arrombar a porta e entrar, com a adrenalina abaixando, você desmaia \n''')
     final = 3
 
-if vida == 0:
+if final == 1 or vida == 0:
     print('''Oishi vê seu corpo sendo explodido e grita:
+
     - \033[7;30mGAROTO! NÃO!\033[m
 
 Em um acesso de fúria e em meio a lágrimas, ele saca uma granada de chamas que não usou no início pois poderia carbonizar você, mas agora que você morreu, ele a usa
 O mosntro solta um grito ensurdecedor enquanto é consumido pelas chamas. Oishi se senta e espera o fogo espalhar e atingí-lo já que não tem para onde fugir por conta da porta ter sido trancada...
 Até que...Oishi perde a consciência''')
-elif final == 2:
+elif final == 2 :
     print('''   - \033[7;30mPorquê, garoto?...\033[m
 
 Oishi perde aconsciência
-Neste tempo, policias começam a arrombar a porta que vocês estavam tancados e te resgata enquanto incineram o monstro com lança-chamas
+Neste tempo, policias começam a arrombar a porta que vocês estavam trancados e te resgata enquanto incineram o monstro com lança-chamas
 Você perde a consciência depois que a adrenalina abaixou''')
 
 time.sleep(20)
 mixer.music.stop()
-mixer.music.load("E:\Jogo\oruins.mp3")
+mixer.music.load("I:\Jogo\oruins.mp3")
 mixer.music.play()
-
 if final == 3:
     print('''Você acorda em uma sala branca e tem um homem em sua frente. Você está traumatizado, obviamente, e não consegue falar
     
@@ -1065,14 +1073,14 @@ if final == 3:
     - Nós incineramos aquele bixo e prendemos o responsável
     - Você recebeu muito dano psicológico e deve ficar aqui por mais tempo, seus pais e amigos virão te visitar, agora tente descansar \n''')
 
-if vida == 0:
-    print('''Oishi acorda em uma sala branca, cercado de pessoas
+if final == 1 or vida == 0:
+    print('''Oishi acorda em uma sala branca, cercado de pessoas. Você se se
 
     - Oishi, não levante, somos nós. Você nos comunicou no caminho para aquele laboratório e acabou lutando com o experimento e perdendo a consciência \n''')
     print('''   - \033[7;30mE o... garoto...?\033[m
     
     - Conseguimos recolher algum pedaços do corpo dele. Seria ótimo se pudéssemos recrutá-lo para nosso grupo de combatentes secretos de monstros resultados de experimentos ou paranormais, ele até que se saiu bem na luta. Ah, você será penalisado pelo chefe por levar um civil sem treinamento para uma batalha, enfim, descanse \n''')
-elif vida > 0 and final == 2:
+elif final == 2:
     print('''Oishi acorda em uma sala branca, cercado de pessoas
 
     - Oishi, não levante, somos nós. Você nos comunicou no caminho para aquele laboratório e acabou lutando com o experimento e perdendo a consciência \n''')
@@ -1111,7 +1119,7 @@ Jogues os outros finais para obter mais informações e descobrir coisas novas..
 mixer.music.stop()
 
 
-mixer.music.load("E:\Jogo\last.mp3")
+mixer.music.load("I:\Jogo\last.mp3")
 mixer.music.play()
 print('''    \033[1;31;41mCréditos\033[m
 
